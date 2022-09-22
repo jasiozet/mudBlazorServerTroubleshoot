@@ -1,0 +1,45 @@
+﻿@page "/counter"
+
+<PageTitle>Select</PageTitle>
+
+<MudSelect T="string" ValueChanged="GetDataForLowerList" >
+    @foreach (var item in UpperList)
+    {
+        <MudSelectItem T="string" Value="@item"> @item </MudSelectItem>
+    }    
+</MudSelect>
+
+<MudSelect T="string">
+    @foreach (var item in LowerList)
+    {
+        <MudSelectItem T="string" Value="@item"> @item </MudSelectItem>
+    }    
+</MudSelect>
+
+<MudButton OnClick="TestMethod">Test</MudButton>
+
+@code {
+    private int currentCount = 0;
+    private static string jeden = "jeden";
+    private static string dwa = "dwa";
+    List<string> UpperList = new List<string> {jeden, dwa};
+    List<string> LowerList { get; set;} = new List<string>();
+    List<string> LowerListV1 = new List<string> {"alpha", "beta", "gamma"};
+    List<string> LowerListV2 = new List<string> {"un", "deux", "trois"};
+
+    private void GetDataForLowerList(string newValue) 
+    {
+        Console.WriteLine(newValue);
+        if(newValue.Equals(jeden)) {
+            LowerList = LowerListV1;
+        }
+        else {
+            LowerList = LowerListV2;
+        }
+    }
+
+    private async Task TestMethod() {
+        Console.WriteLine("Test");
+        await Task.Delay(2000);
+    }
+}
